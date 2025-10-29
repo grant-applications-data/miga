@@ -1,7 +1,7 @@
 ---
-id: https://w3id.org/grant-applications-data/miga
+id: https://w3id.org/miga
 name: miga
-title: miga
+title: Minimal Information on Grant Applications (MIGA)
 description: |-
   A minimal data schema to increase the transparency of grant applications, while protecting their confidentiality and the privacy of their applicants.
 license: MIT
@@ -9,88 +9,107 @@ see_also:
   - https://grant-applications-data.github.io/miga
 
 prefixes:
-  miga: https://w3id.org/grant-applications-data/miga/
+  miga: https://w3id.org/miga
   linkml: https://w3id.org/linkml/
-  biolink: https://w3id.org/biolink/
   schema: http://schema.org/
-  PATO: http://purl.obolibrary.org/obo/PATO_
-  example: https://example.org/
 default_prefix: miga
 default_range: string
 
 imports:
   - linkml:types
 
+enums:
+  GenderEnum:
+    description: Gender of a person, based on https://schema.org/Gender
+    permissible_values:
+      MALE:
+        meaning: schema:Male
+      FEMALE:
+        meaning: schema:Female
+
+types:
+  AgeRange:
+    description: Age range in string format (e.g. "35-45" with hyphen or "35–45" with en dash).
+    base: string
+    uri: xsd:string
+    pattern: '^\d+\s*[-–]\s*\d+$'
+
+  AgeValue:
+    description: Age as integer.
+    base: integer
+    uri: xsd:integer
+
+
 classes:
-
-  NamedThing:
-    description: >-
-      A generic grouping for any identifiable entity
+  ReviewScore:
+    description: Final score or score for a specific criterion, step, and/or reviewer.
     slots:
-      - id
-      - name
-      - description
-    class_uri: schema:Thing
-
-  Person:
-    is_a: NamedThing
-    description: >-
-      Represents a Person
-    slots:
-      - primary_email
-      - birth_date
-      - age_in_years
-      - vital_status
+      - reviewer
+      - step
+      - criterion
+      - score
     slot_usage:
-      primary_email:
-        pattern: "^\\S+@[\\S+\\.]+\\S+"
+      score:
+        range: float
 
-  PersonCollection:
+  GrantApplication:
+    description: A research grant application.
     tree_root: true
-    description: >-
-      A holder for Person objects
-    attributes:
-      entries:
-        range: Person
-        multivalued: true
-        inlined_as_list: true
+    slots:
+      - pi_age
+      - pi_gender
+      - application_year
+      - grant_scheme
+      - discipline
+      - scores
+      - success
 
 slots:
-  id:
-    identifier: true
-    slot_uri: schema:identifier
-    range: uriorcurie
-    description: A unique identifier for a thing
-  name:
-    slot_uri: schema:name
-    description: A human-readable name for a thing
-  description:
-    slot_uri: schema:description
-    description: A human-readable description for a thing
-  primary_email:
-    slot_uri: schema:email
-    description: The main email address of a person
-  birth_date:
-    slot_uri: schema:birthDate
-    range: date
-    description: Date on which a person is born
-  age_in_years:
-    range: integer
-    description: Number of years since birth
-  vital_status:
-    range: PersonStatus
-    description: living or dead status
+  pi_age:
+    any_of: 
+      - range: AgeRange
+      - range: AgeValue
+    description: Age or age range of the principal investigator.
 
-enums:
-  PersonStatus:
-    permissible_values:
-      ALIVE:
-        description: the person is living
-        meaning: PATO:0001421
-      DEAD:
-        description: the person is deceased
-        meaning: PATO:0001422
-      UNKNOWN:
-        description: the vital status is not known
-        todos:
-          - map this to an ontology
+  pi_gender:
+    any_of:
+      - range: GenderEnum
+      - range: string
+    description: Gender of the principal investigator, with enumerations for male and female, while allowing other values as well (e.g. "Non-binary", "Other"...).
+
+  application_year:
+    range: integer # range: date would require a year, month and day, see https://github.com/linkml/linkml/issues/496
+    description: Year the application was submitted, or year the grant scheme was published.
+
+  grant_scheme:
+    description: The funding scheme under which the grant was applied.
+
+  discipline:
+    description: Organizational division (panel, directorate, office...) that represents the discipline of the application. The most granular division should always be preferred.
+
+  scores:
+    range: ReviewScore
+    multivalued: true # a single item and a list are both valid inputs
+    description: One or more scores assigned during the review process. A single score can be interpreted as the final score.
+
+  reviewer:
+    description: Anonymized identifier of the reviewer, e.g. R1, R2...
+    required: false
+
+  step:
+    range: integer
+    description: Numeric representation of the stage or phase in the grant review process (e.g. "1" for the initial screening, "2" for the panel review...).
+    required: false
+
+  criterion:
+    description: Criterion being evaluated.
+    required: false
+
+  score:
+    range: float
+    description: Numeric score assigned.
+    required: true
+
+  success:
+    range: boolean
+    description: Whether the application was successful.

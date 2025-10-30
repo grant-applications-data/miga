@@ -1,0 +1,503 @@
+name: miga
+description: A minimal data schema to increase the transparency of grant applications,
+  while protecting their confidentiality and the privacy of their applicants.
+title: Minimal Information on Grant Applications (MIGA)
+see_also:
+- https://grant-applications-data.github.io/miga
+id: https://w3id.org/miga
+imports:
+- linkml:types
+license: MIT
+prefixes:
+  miga:
+    prefix_prefix: miga
+    prefix_reference: https://w3id.org/miga
+  linkml:
+    prefix_prefix: linkml
+    prefix_reference: https://w3id.org/linkml/
+  schema:
+    prefix_prefix: schema
+    prefix_reference: http://schema.org/
+default_prefix: miga
+default_range: string
+types:
+  AgeRange:
+    name: AgeRange
+    definition_uri: https://w3id.org/migaAgeRange
+    description: "Age range in string format (e.g. \"35-45\" with hyphen or \"35\u2013\
+      45\" with en dash)."
+    from_schema: https://w3id.org/miga
+    base: string
+    uri: xsd:string
+    pattern: "^\\d+\\s*[-\u2013]\\s*\\d+$"
+  AgeValue:
+    name: AgeValue
+    definition_uri: https://w3id.org/migaAgeValue
+    description: Age as integer.
+    from_schema: https://w3id.org/miga
+    base: integer
+    uri: xsd:integer
+  string:
+    name: string
+    definition_uri: https://w3id.org/linkml/String
+    description: A character string
+    notes:
+    - In RDF serializations, a slot with range of string is treated as a literal or
+      type xsd:string.   If you are authoring schemas in LinkML YAML, the type is
+      referenced with the lower case "string".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Text
+    base: str
+    uri: xsd:string
+  integer:
+    name: integer
+    definition_uri: https://w3id.org/linkml/Integer
+    description: An integer
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "integer".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Integer
+    base: int
+    uri: xsd:integer
+  boolean:
+    name: boolean
+    definition_uri: https://w3id.org/linkml/Boolean
+    description: A binary (true or false) value
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "boolean".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Boolean
+    base: Bool
+    uri: xsd:boolean
+    repr: bool
+  float:
+    name: float
+    definition_uri: https://w3id.org/linkml/Float
+    description: A real number that conforms to the xsd:float specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "float".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Float
+    base: float
+    uri: xsd:float
+  double:
+    name: double
+    definition_uri: https://w3id.org/linkml/Double
+    description: A real number that conforms to the xsd:double specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "double".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    close_mappings:
+    - schema:Float
+    base: float
+    uri: xsd:double
+  decimal:
+    name: decimal
+    definition_uri: https://w3id.org/linkml/Decimal
+    description: A real number with arbitrary precision that conforms to the xsd:decimal
+      specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "decimal".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    broad_mappings:
+    - schema:Number
+    base: Decimal
+    uri: xsd:decimal
+  time:
+    name: time
+    definition_uri: https://w3id.org/linkml/Time
+    description: A time object represents a (local) time of day, independent of any
+      particular day
+    notes:
+    - URI is dateTime because OWL reasoners do not work with straight date or time
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "time".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Time
+    base: XSDTime
+    uri: xsd:time
+    repr: str
+  date:
+    name: date
+    definition_uri: https://w3id.org/linkml/Date
+    description: a date (year, month and day) in an idealized calendar
+    notes:
+    - URI is dateTime because OWL reasoners don't work with straight date or time
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "date".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Date
+    base: XSDDate
+    uri: xsd:date
+    repr: str
+  datetime:
+    name: datetime
+    definition_uri: https://w3id.org/linkml/Datetime
+    description: The combination of a date and time
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "datetime".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:DateTime
+    base: XSDDateTime
+    uri: xsd:dateTime
+    repr: str
+  date_or_datetime:
+    name: date_or_datetime
+    definition_uri: https://w3id.org/linkml/DateOrDatetime
+    description: Either a date or a datetime
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "date_or_datetime".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: linkml:DateOrDatetime
+    repr: str
+  uriorcurie:
+    name: uriorcurie
+    definition_uri: https://w3id.org/linkml/Uriorcurie
+    description: a URI or a CURIE
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "uriorcurie".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: URIorCURIE
+    uri: xsd:anyURI
+    repr: str
+  curie:
+    name: curie
+    definition_uri: https://w3id.org/linkml/Curie
+    conforms_to: https://www.w3.org/TR/curie/
+    description: a compact URI
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "curie".
+    comments:
+    - in RDF serializations this MUST be expanded to a URI
+    - in non-RDF serializations MAY be serialized as the compact representation
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: Curie
+    uri: xsd:string
+    repr: str
+  uri:
+    name: uri
+    definition_uri: https://w3id.org/linkml/Uri
+    conforms_to: https://www.ietf.org/rfc/rfc3987.txt
+    description: a complete URI
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "uri".
+    comments:
+    - in RDF serializations a slot with range of uri is treated as a literal or type
+      xsd:anyURI unless it is an identifier or a reference to an identifier, in which
+      case it is translated directly to a node
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    close_mappings:
+    - schema:URL
+    base: URI
+    uri: xsd:anyURI
+    repr: str
+  ncname:
+    name: ncname
+    definition_uri: https://w3id.org/linkml/Ncname
+    description: Prefix part of CURIE
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "ncname".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: NCName
+    uri: xsd:string
+    repr: str
+  objectidentifier:
+    name: objectidentifier
+    definition_uri: https://w3id.org/linkml/Objectidentifier
+    description: A URI or CURIE that represents an object in the model.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "objectidentifier".
+    comments:
+    - Used for inheritance and type checking
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: ElementIdentifier
+    uri: shex:iri
+    repr: str
+  nodeidentifier:
+    name: nodeidentifier
+    definition_uri: https://w3id.org/linkml/Nodeidentifier
+    description: A URI, CURIE or BNODE that represents a node in a model.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "nodeidentifier".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: NodeIdentifier
+    uri: shex:nonLiteral
+    repr: str
+  jsonpointer:
+    name: jsonpointer
+    definition_uri: https://w3id.org/linkml/Jsonpointer
+    conforms_to: https://datatracker.ietf.org/doc/html/rfc6901
+    description: A string encoding a JSON Pointer. The value of the string MUST conform
+      to JSON Point syntax and SHOULD dereference to a valid object within the current
+      instance document when encoded in tree form.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "jsonpointer".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+  jsonpath:
+    name: jsonpath
+    definition_uri: https://w3id.org/linkml/Jsonpath
+    conforms_to: https://www.ietf.org/archive/id/draft-goessner-dispatch-jsonpath-00.html
+    description: A string encoding a JSON Path. The value of the string MUST conform
+      to JSON Point syntax and SHOULD dereference to zero or more valid objects within
+      the current instance document when encoded in tree form.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "jsonpath".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+  sparqlpath:
+    name: sparqlpath
+    definition_uri: https://w3id.org/linkml/Sparqlpath
+    conforms_to: https://www.w3.org/TR/sparql11-query/#propertypaths
+    description: A string encoding a SPARQL Property Path. The value of the string
+      MUST conform to SPARQL syntax and SHOULD dereference to zero or more valid objects
+      within the current instance document when encoded as RDF.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "sparqlpath".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+enums:
+  GenderEnum:
+    name: GenderEnum
+    definition_uri: https://w3id.org/migaGenderEnum
+    description: Gender of a person, based on https://schema.org/Gender
+    from_schema: https://w3id.org/miga
+    permissible_values:
+      MALE:
+        text: MALE
+        meaning: schema:Male
+      FEMALE:
+        text: FEMALE
+        meaning: schema:Female
+slots:
+  pi_age:
+    name: pi_age
+    definition_uri: https://w3id.org/migapi_age
+    description: Age or age range of the principal investigator.
+    from_schema: https://w3id.org/miga
+    slot_uri: miga:pi_age
+    owner: GrantApplication
+    domain_of:
+    - GrantApplication
+    range: string
+    any_of:
+    - range: AgeRange
+    - range: AgeValue
+  pi_gender:
+    name: pi_gender
+    definition_uri: https://w3id.org/migapi_gender
+    description: Gender of the principal investigator, with enumerations for male
+      and female, while allowing other values as well (e.g. "Non-binary", "Other"...).
+    from_schema: https://w3id.org/miga
+    slot_uri: miga:pi_gender
+    owner: GrantApplication
+    domain_of:
+    - GrantApplication
+    range: string
+    any_of:
+    - range: GenderEnum
+    - range: string
+  application_year:
+    name: application_year
+    definition_uri: https://w3id.org/migaapplication_year
+    description: Year the application was submitted, or year the grant scheme was
+      published.
+    from_schema: https://w3id.org/miga
+    slot_uri: miga:application_year
+    owner: GrantApplication
+    domain_of:
+    - GrantApplication
+    range: integer
+  grant_scheme:
+    name: grant_scheme
+    definition_uri: https://w3id.org/migagrant_scheme
+    description: The funding scheme under which the grant was applied.
+    from_schema: https://w3id.org/miga
+    slot_uri: miga:grant_scheme
+    owner: GrantApplication
+    domain_of:
+    - GrantApplication
+    range: string
+  discipline:
+    name: discipline
+    definition_uri: https://w3id.org/migadiscipline
+    description: Organizational division (panel, directorate, office...) that represents
+      the discipline of the application. The most granular division should always
+      be preferred.
+    from_schema: https://w3id.org/miga
+    slot_uri: miga:discipline
+    owner: GrantApplication
+    domain_of:
+    - GrantApplication
+    range: string
+  scores:
+    name: scores
+    definition_uri: https://w3id.org/migascores
+    description: One or more scores assigned during the review process. A single score
+      can be interpreted as the final score.
+    from_schema: https://w3id.org/miga
+    slot_uri: miga:scores
+    owner: GrantApplication
+    domain_of:
+    - GrantApplication
+    range: ReviewScore
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  reviewer:
+    name: reviewer
+    definition_uri: https://w3id.org/migareviewer
+    description: Anonymized identifier of the reviewer, e.g. R1, R2...
+    from_schema: https://w3id.org/miga
+    slot_uri: miga:reviewer
+    owner: ReviewScore
+    domain_of:
+    - ReviewScore
+    range: string
+    required: false
+  step:
+    name: step
+    definition_uri: https://w3id.org/migastep
+    description: Numeric representation of the stage or phase in the grant review
+      process (e.g. "1" for the initial screening, "2" for the panel review...).
+    from_schema: https://w3id.org/miga
+    slot_uri: miga:step
+    owner: ReviewScore
+    domain_of:
+    - ReviewScore
+    range: integer
+    required: false
+  criterion:
+    name: criterion
+    definition_uri: https://w3id.org/migacriterion
+    description: Criterion being evaluated.
+    from_schema: https://w3id.org/miga
+    slot_uri: miga:criterion
+    owner: ReviewScore
+    domain_of:
+    - ReviewScore
+    range: string
+    required: false
+  score:
+    name: score
+    definition_uri: https://w3id.org/migascore
+    description: Numeric score assigned.
+    from_schema: https://w3id.org/miga
+    slot_uri: miga:score
+    owner: ReviewScore
+    domain_of:
+    - ReviewScore
+    range: float
+    required: true
+  success:
+    name: success
+    definition_uri: https://w3id.org/migasuccess
+    description: Whether the application was successful.
+    from_schema: https://w3id.org/miga
+    slot_uri: miga:success
+    owner: GrantApplication
+    domain_of:
+    - GrantApplication
+    range: boolean
+  ReviewScore_score:
+    name: ReviewScore_score
+    definition_uri: https://w3id.org/migascore
+    description: Numeric score assigned.
+    from_schema: https://w3id.org/miga
+    is_a: score
+    domain: ReviewScore
+    slot_uri: miga:score
+    alias: score
+    owner: ReviewScore
+    domain_of:
+    - ReviewScore
+    is_usage_slot: true
+    usage_slot_name: score
+    range: float
+    required: true
+classes:
+  ReviewScore:
+    name: ReviewScore
+    definition_uri: https://w3id.org/migaReviewScore
+    description: Final score or score for a specific criterion, step, and/or reviewer.
+    from_schema: https://w3id.org/miga
+    slots:
+    - reviewer
+    - step
+    - criterion
+    - ReviewScore_score
+    slot_usage:
+      score:
+        name: score
+        range: float
+    class_uri: miga:ReviewScore
+  GrantApplication:
+    name: GrantApplication
+    definition_uri: https://w3id.org/migaGrantApplication
+    description: A research grant application.
+    from_schema: https://w3id.org/miga
+    slots:
+    - pi_age
+    - pi_gender
+    - application_year
+    - grant_scheme
+    - discipline
+    - scores
+    - success
+    class_uri: miga:GrantApplication
+    tree_root: true
+metamodel_version: 1.7.0
+source_file: miga.yaml
+source_file_date: '2025-10-30T23:29:55'
+source_file_size: 3145
+generation_date: '2025-10-30T23:30:05'
+

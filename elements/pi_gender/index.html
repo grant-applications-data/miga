@@ -387,7 +387,7 @@
 
 
 <h1 id="slot-pi_gender">Slot: pi_gender</h1>
-<p><em>Gender of the principal investigator, with enumerations for male and female, while allowing other values as well (e.g. "Non-binary", "Other"...).</em></p>
+<p><em>Gender of the principal investigator.</em></p>
 <p>URI: <a href="https://w3id.org/migapi_gender">miga:pi_gender</a>
 Alias: pi_gender</p>
 <!-- no inheritance hierarchy -->
@@ -404,14 +404,14 @@ Alias: pi_gender</p>
 <tbody>
 <tr>
 <td><a href="../GrantApplication/">GrantApplication</a></td>
-<td>A research grant application</td>
+<td>Research grant application</td>
 <td>no</td>
 </tr>
 </tbody>
 </table>
 <h2 id="properties">Properties</h2>
 <ul>
-<li>Range: <a href="../String/">String</a>&nbsp;or&nbsp;<br /><a href="../GenderEnum/">GenderEnum</a>&nbsp;or&nbsp;<br /><a href="../String/">String</a></li>
+<li>Range: <a href="../String/">String</a></li>
 </ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
 <h3 id="schema-source">Schema Source</h3>
@@ -435,23 +435,25 @@ Alias: pi_gender</p>
 <td>native</td>
 <td>miga:pi_gender</td>
 </tr>
+<tr>
+<td>close</td>
+<td>schema:gender</td>
+</tr>
 </tbody>
 </table>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 
 <pre><code class="language-yaml">name: pi_gender
-description: Gender of the principal investigator, with enumerations for male and
-  female, while allowing other values as well (e.g. &quot;Non-binary&quot;, &quot;Other&quot;...).
+description: Gender of the principal investigator.
 from_schema: https://w3id.org/miga
+close_mappings:
+- schema:gender
 rank: 1000
 alias: pi_gender
 domain_of:
 - GrantApplication
 range: string
-any_of:
-- range: GenderEnum
-- range: string
 
 </code></pre>
 

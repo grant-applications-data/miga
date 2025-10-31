@@ -404,7 +404,7 @@ Alias: grant_scheme</p>
 <tbody>
 <tr>
 <td><a href="../GrantApplication/">GrantApplication</a></td>
-<td>A research grant application</td>
+<td>Research grant application</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -435,6 +435,10 @@ Alias: grant_scheme</p>
 <td>native</td>
 <td>miga:grant_scheme</td>
 </tr>
+<tr>
+<td>exact</td>
+<td>schema:FundingScheme</td>
+</tr>
 </tbody>
 </table>
 <h2 id="linkml-source">LinkML Source</h2>
@@ -443,6 +447,8 @@ Alias: grant_scheme</p>
 <pre><code class="language-yaml">name: grant_scheme
 description: The funding scheme under which the grant was applied.
 from_schema: https://w3id.org/miga
+exact_mappings:
+- schema:FundingScheme
 rank: 1000
 alias: grant_scheme
 domain_of:

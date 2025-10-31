@@ -324,6 +324,10 @@
 <td>native</td>
 <td>miga:ReviewScore</td>
 </tr>
+<tr>
+<td>exact</td>
+<td>schema:Rating</td>
+</tr>
 </tbody>
 </table>
 <h2 id="linkml-source">LinkML Source</h2>
@@ -333,6 +337,8 @@
 <pre><code class="language-yaml">name: ReviewScore
 description: Final score or score for a specific criterion, step, and/or reviewer.
 from_schema: https://w3id.org/miga
+exact_mappings:
+- schema:Rating
 slots:
 - reviewer
 - step
@@ -350,6 +356,8 @@ slot_usage:
 <pre><code class="language-yaml">name: ReviewScore
 description: Final score or score for a specific criterion, step, and/or reviewer.
 from_schema: https://w3id.org/miga
+exact_mappings:
+- schema:Rating
 slot_usage:
   score:
     name: score

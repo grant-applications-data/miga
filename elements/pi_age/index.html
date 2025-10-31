@@ -387,7 +387,7 @@
 
 
 <h1 id="slot-pi_age">Slot: pi_age</h1>
-<p><em>Age or age range of the principal investigator.</em></p>
+<p><em>Age of the principal investigator.</em></p>
 <p>URI: <a href="https://w3id.org/migapi_age">miga:pi_age</a>
 Alias: pi_age</p>
 <!-- no inheritance hierarchy -->
@@ -404,14 +404,14 @@ Alias: pi_age</p>
 <tbody>
 <tr>
 <td><a href="../GrantApplication/">GrantApplication</a></td>
-<td>A research grant application</td>
+<td>Research grant application</td>
 <td>no</td>
 </tr>
 </tbody>
 </table>
 <h2 id="properties">Properties</h2>
 <ul>
-<li>Range: <a href="../String/">String</a>&nbsp;or&nbsp;<br /><a href="../AgeRange/">AgeRange</a>&nbsp;or&nbsp;<br /><a href="../AgeValue/">AgeValue</a></li>
+<li>Range: <a href="../Integer/">Integer</a></li>
 </ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
 <h3 id="schema-source">Schema Source</h3>
@@ -441,16 +441,13 @@ Alias: pi_age</p>
 <details>
 
 <pre><code class="language-yaml">name: pi_age
-description: Age or age range of the principal investigator.
+description: Age of the principal investigator.
 from_schema: https://w3id.org/miga
 rank: 1000
 alias: pi_age
 domain_of:
 - GrantApplication
-range: string
-any_of:
-- range: AgeRange
-- range: AgeValue
+range: integer
 
 </code></pre>
 

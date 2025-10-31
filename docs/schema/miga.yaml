@@ -1,32 +1,23 @@
 name: miga
 description: A minimal data schema to increase the transparency of grant applications,
   while protecting their confidentiality and the privacy of their applicants.
-title: miga
+title: Minimal Information on Grant Applications (MIGA)
 see_also:
 - https://grant-applications-data.github.io/miga
-id: https://w3id.org/grant-applications-data/miga
+id: https://w3id.org/miga
 imports:
 - linkml:types
 license: MIT
 prefixes:
   miga:
     prefix_prefix: miga
-    prefix_reference: https://w3id.org/grant-applications-data/miga/
+    prefix_reference: https://w3id.org/miga
   linkml:
     prefix_prefix: linkml
     prefix_reference: https://w3id.org/linkml/
-  biolink:
-    prefix_prefix: biolink
-    prefix_reference: https://w3id.org/biolink/
   schema:
     prefix_prefix: schema
     prefix_reference: http://schema.org/
-  PATO:
-    prefix_prefix: PATO
-    prefix_reference: http://purl.obolibrary.org/obo/PATO_
-  example:
-    prefix_prefix: example
-    prefix_reference: https://example.org/
 default_prefix: miga
 default_range: string
 types:
@@ -298,188 +289,185 @@ types:
     base: str
     uri: xsd:string
     repr: str
-enums:
-  PersonStatus:
-    name: PersonStatus
-    definition_uri: https://w3id.org/grant-applications-data/miga/PersonStatus
-    from_schema: https://w3id.org/grant-applications-data/miga
-    permissible_values:
-      ALIVE:
-        text: ALIVE
-        description: the person is living
-        meaning: PATO:0001421
-      DEAD:
-        text: DEAD
-        description: the person is deceased
-        meaning: PATO:0001422
-      UNKNOWN:
-        text: UNKNOWN
-        description: the vital status is not known
-        todos:
-        - map this to an ontology
 slots:
-  id:
-    name: id
-    definition_uri: https://w3id.org/grant-applications-data/miga/id
-    description: A unique identifier for a thing
-    from_schema: https://w3id.org/grant-applications-data/miga
-    mappings:
-    - schema:identifier
-    slot_uri: schema:identifier
-    identifier: true
-    owner: NamedThing
+  pi_age:
+    name: pi_age
+    definition_uri: https://w3id.org/migapi_age
+    description: Age of the principal investigator.
+    from_schema: https://w3id.org/miga
+    slot_uri: miga:pi_age
+    owner: GrantApplication
     domain_of:
-    - NamedThing
-    range: uriorcurie
-    required: true
-  name:
-    name: name
-    definition_uri: https://w3id.org/grant-applications-data/miga/name
-    description: A human-readable name for a thing
-    from_schema: https://w3id.org/grant-applications-data/miga
-    mappings:
-    - schema:name
-    slot_uri: schema:name
-    owner: NamedThing
-    domain_of:
-    - NamedThing
-    range: string
-  description:
-    name: description
-    definition_uri: https://w3id.org/grant-applications-data/miga/description
-    description: A human-readable description for a thing
-    from_schema: https://w3id.org/grant-applications-data/miga
-    mappings:
-    - schema:description
-    slot_uri: schema:description
-    owner: NamedThing
-    domain_of:
-    - NamedThing
-    range: string
-  primary_email:
-    name: primary_email
-    definition_uri: https://w3id.org/grant-applications-data/miga/primary_email
-    description: The main email address of a person
-    from_schema: https://w3id.org/grant-applications-data/miga
-    mappings:
-    - schema:email
-    slot_uri: schema:email
-    owner: Person
-    domain_of:
-    - Person
-    range: string
-  birth_date:
-    name: birth_date
-    definition_uri: https://w3id.org/grant-applications-data/miga/birth_date
-    description: Date on which a person is born
-    from_schema: https://w3id.org/grant-applications-data/miga
-    mappings:
-    - schema:birthDate
-    slot_uri: schema:birthDate
-    owner: Person
-    domain_of:
-    - Person
-    range: date
-  age_in_years:
-    name: age_in_years
-    definition_uri: https://w3id.org/grant-applications-data/miga/age_in_years
-    description: Number of years since birth
-    from_schema: https://w3id.org/grant-applications-data/miga
-    slot_uri: miga:age_in_years
-    owner: Person
-    domain_of:
-    - Person
+    - GrantApplication
     range: integer
-  vital_status:
-    name: vital_status
-    definition_uri: https://w3id.org/grant-applications-data/miga/vital_status
-    description: living or dead status
-    from_schema: https://w3id.org/grant-applications-data/miga
-    slot_uri: miga:vital_status
-    owner: Person
+  pi_gender:
+    name: pi_gender
+    definition_uri: https://w3id.org/migapi_gender
+    description: Gender of the principal investigator.
+    from_schema: https://w3id.org/miga
+    close_mappings:
+    - schema:gender
+    slot_uri: miga:pi_gender
+    owner: GrantApplication
     domain_of:
-    - Person
-    range: PersonStatus
-  personCollection__entries:
-    name: personCollection__entries
-    from_schema: https://w3id.org/grant-applications-data/miga
-    slot_uri: miga:entries
-    alias: entries
-    owner: PersonCollection
+    - GrantApplication
+    range: string
+  application_year:
+    name: application_year
+    definition_uri: https://w3id.org/migaapplication_year
+    description: Year the application was submitted, or year the grant scheme was
+      published.
+    from_schema: https://w3id.org/miga
+    slot_uri: miga:application_year
+    owner: GrantApplication
     domain_of:
-    - PersonCollection
-    range: Person
+    - GrantApplication
+    range: integer
+  grant_scheme:
+    name: grant_scheme
+    definition_uri: https://w3id.org/migagrant_scheme
+    description: The funding scheme under which the grant was applied.
+    from_schema: https://w3id.org/miga
+    exact_mappings:
+    - schema:FundingScheme
+    slot_uri: miga:grant_scheme
+    owner: GrantApplication
+    domain_of:
+    - GrantApplication
+    range: string
+  discipline:
+    name: discipline
+    definition_uri: https://w3id.org/migadiscipline
+    description: Organizational division (panel, directorate, office...) that represents
+      the discipline of the application. The most granular division should always
+      be preferred.
+    from_schema: https://w3id.org/miga
+    slot_uri: miga:discipline
+    owner: GrantApplication
+    domain_of:
+    - GrantApplication
+    range: string
+  scores:
+    name: scores
+    definition_uri: https://w3id.org/migascores
+    description: One or more scores assigned during the review process. A single score
+      can be interpreted as the final score.
+    from_schema: https://w3id.org/miga
+    slot_uri: miga:scores
+    owner: GrantApplication
+    domain_of:
+    - GrantApplication
+    range: ReviewScore
     multivalued: true
     inlined: true
     inlined_as_list: true
-  Person_primary_email:
-    name: Person_primary_email
-    definition_uri: https://w3id.org/grant-applications-data/miga/primary_email
-    description: The main email address of a person
-    from_schema: https://w3id.org/grant-applications-data/miga
-    mappings:
-    - schema:email
-    is_a: primary_email
-    domain: Person
-    slot_uri: schema:email
-    alias: primary_email
-    owner: Person
+  reviewer:
+    name: reviewer
+    definition_uri: https://w3id.org/migareviewer
+    description: Anonymized identifier of the reviewer, e.g. R1, R2...
+    from_schema: https://w3id.org/miga
+    slot_uri: miga:reviewer
+    owner: ReviewScore
     domain_of:
-    - Person
-    is_usage_slot: true
-    usage_slot_name: primary_email
+    - ReviewScore
     range: string
-    pattern: ^\S+@[\S+\.]+\S+
+    required: false
+  step:
+    name: step
+    definition_uri: https://w3id.org/migastep
+    description: Numeric representation of the stage or phase in the grant review
+      process (e.g. "1" for the initial screening, "2" for the panel review...).
+    from_schema: https://w3id.org/miga
+    slot_uri: miga:step
+    owner: ReviewScore
+    domain_of:
+    - ReviewScore
+    range: integer
+    required: false
+  criterion:
+    name: criterion
+    definition_uri: https://w3id.org/migacriterion
+    description: Criterion being evaluated.
+    from_schema: https://w3id.org/miga
+    slot_uri: miga:criterion
+    owner: ReviewScore
+    domain_of:
+    - ReviewScore
+    range: string
+    required: false
+  score:
+    name: score
+    definition_uri: https://w3id.org/migascore
+    description: Numeric score assigned.
+    from_schema: https://w3id.org/miga
+    slot_uri: miga:score
+    owner: ReviewScore
+    domain_of:
+    - ReviewScore
+    range: float
+    required: true
+  success:
+    name: success
+    definition_uri: https://w3id.org/migasuccess
+    description: Whether the application was successful.
+    from_schema: https://w3id.org/miga
+    slot_uri: miga:success
+    owner: GrantApplication
+    domain_of:
+    - GrantApplication
+    range: boolean
+  ReviewScore_score:
+    name: ReviewScore_score
+    definition_uri: https://w3id.org/migascore
+    description: Numeric score assigned.
+    from_schema: https://w3id.org/miga
+    is_a: score
+    domain: ReviewScore
+    slot_uri: miga:score
+    alias: score
+    owner: ReviewScore
+    domain_of:
+    - ReviewScore
+    is_usage_slot: true
+    usage_slot_name: score
+    range: float
+    required: true
 classes:
-  NamedThing:
-    name: NamedThing
-    definition_uri: https://w3id.org/grant-applications-data/miga/NamedThing
-    description: A generic grouping for any identifiable entity
-    from_schema: https://w3id.org/grant-applications-data/miga
-    mappings:
-    - schema:Thing
+  ReviewScore:
+    name: ReviewScore
+    definition_uri: https://w3id.org/migaReviewScore
+    description: Final score or score for a specific criterion, step, and/or reviewer.
+    from_schema: https://w3id.org/miga
+    exact_mappings:
+    - schema:Rating
     slots:
-    - id
-    - name
-    - description
-    class_uri: schema:Thing
-  Person:
-    name: Person
-    definition_uri: https://w3id.org/grant-applications-data/miga/Person
-    description: Represents a Person
-    from_schema: https://w3id.org/grant-applications-data/miga
-    is_a: NamedThing
-    slots:
-    - id
-    - name
-    - description
-    - Person_primary_email
-    - birth_date
-    - age_in_years
-    - vital_status
+    - reviewer
+    - step
+    - criterion
+    - ReviewScore_score
     slot_usage:
-      primary_email:
-        name: primary_email
-        pattern: ^\S+@[\S+\.]+\S+
-    class_uri: miga:Person
-  PersonCollection:
-    name: PersonCollection
-    definition_uri: https://w3id.org/grant-applications-data/miga/PersonCollection
-    description: A holder for Person objects
-    from_schema: https://w3id.org/grant-applications-data/miga
+      score:
+        name: score
+        range: float
+    class_uri: miga:ReviewScore
+  GrantApplication:
+    name: GrantApplication
+    definition_uri: https://w3id.org/migaGrantApplication
+    description: Research grant application.
+    from_schema: https://w3id.org/miga
     slots:
-    - personCollection__entries
-    attributes:
-      entries:
-        name: entries
-        range: Person
-        multivalued: true
-        inlined_as_list: true
-    class_uri: miga:PersonCollection
+    - pi_age
+    - pi_gender
+    - application_year
+    - grant_scheme
+    - discipline
+    - scores
+    - success
+    class_uri: miga:GrantApplication
     tree_root: true
 metamodel_version: 1.7.0
 source_file: miga.yaml
-source_file_date: '2025-10-29T18:53:53'
-source_file_size: 2296
-generation_date: '2025-10-29T18:54:39'
+source_file_date: '2025-10-31T00:25:14'
+source_file_size: 2582
+generation_date: '2025-10-31T00:25:39'
 

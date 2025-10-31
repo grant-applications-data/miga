@@ -1,0 +1,13 @@
+# Example for an invalid data object
+# pi_gender must be a string it can't be an object
+# pi_age must be an integer
+---
+pi_age: 35-45
+pi_gender: 
+  value: Male
+application_year: 2021
+grant_scheme: Innovation grant
+discipline: Engineering
+scores:
+  - score: 3.8
+success: true

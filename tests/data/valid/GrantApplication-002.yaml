@@ -1,0 +1,10 @@
+# Example for a valid data object
+---
+pi_age: 42
+pi_gender: Male
+application_year: 2024
+grant_scheme: Appel à projets générique
+discipline: "Sciences de l'environnement" # the discipline can be in any language
+scores:
+  - score: 4.2
+success: true

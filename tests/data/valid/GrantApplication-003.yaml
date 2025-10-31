@@ -1,0 +1,28 @@
+# Example for a valid data object
+# test data with detailed score for 2 steps and two reviewers
+---
+pi_age: 35
+pi_gender: "Non-binary"
+application_year: 2023
+grant_scheme: Advanced Fellowship
+discipline: Humanities
+scores:
+  - reviewer: R1
+    step: 1
+    criterion: Innovation
+    score: 4.5
+  - reviewer: R1
+    step: 1
+    criterion: Feasibility
+    score: 3.8
+  - reviewer: R2
+    step: 1
+    criterion: Innovation
+    score: 4.2
+  - reviewer: R2
+    step: 1
+    criterion: Feasibility
+    score: 3.5
+  - step: 2
+    score: 4.0
+success: true

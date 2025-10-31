@@ -83,96 +83,51 @@ linkml_meta = LinkMLMeta({'default_prefix': 'miga',
      'description': 'A minimal data schema to increase the transparency of grant '
                     'applications, while protecting their confidentiality and the '
                     'privacy of their applicants.',
-     'id': 'https://w3id.org/grant-applications-data/miga',
+     'id': 'https://w3id.org/miga',
      'imports': ['linkml:types'],
      'license': 'MIT',
      'name': 'miga',
-     'prefixes': {'PATO': {'prefix_prefix': 'PATO',
-                           'prefix_reference': 'http://purl.obolibrary.org/obo/PATO_'},
-                  'biolink': {'prefix_prefix': 'biolink',
-                              'prefix_reference': 'https://w3id.org/biolink/'},
-                  'example': {'prefix_prefix': 'example',
-                              'prefix_reference': 'https://example.org/'},
-                  'linkml': {'prefix_prefix': 'linkml',
+     'prefixes': {'linkml': {'prefix_prefix': 'linkml',
                              'prefix_reference': 'https://w3id.org/linkml/'},
                   'miga': {'prefix_prefix': 'miga',
-                           'prefix_reference': 'https://w3id.org/grant-applications-data/miga/'},
+                           'prefix_reference': 'https://w3id.org/miga'},
                   'schema': {'prefix_prefix': 'schema',
                              'prefix_reference': 'http://schema.org/'}},
      'see_also': ['https://grant-applications-data.github.io/miga'],
      'source_file': 'src/miga/schema/miga.yaml',
-     'title': 'miga'} )
-
-class PersonStatus(str, Enum):
-    ALIVE = "ALIVE"
-    """
-    the person is living
-    """
-    DEAD = "DEAD"
-    """
-    the person is deceased
-    """
-    UNKNOWN = "UNKNOWN"
-    """
-    the vital status is not known
-    """
+     'title': 'Minimal Information on Grant Applications (MIGA)'} )
 
 
-
-class NamedThing(ConfiguredBaseModel):
+class ReviewScore(ConfiguredBaseModel):
     """
-    A generic grouping for any identifiable entity
+    Final score or score for a specific criterion, step, and/or reviewer.
     """
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'schema:Thing',
-         'from_schema': 'https://w3id.org/grant-applications-data/miga'})
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'exact_mappings': ['schema:Rating'],
+         'from_schema': 'https://w3id.org/miga',
+         'slot_usage': {'score': {'name': 'score', 'range': 'float'}}})
 
-    id: str = Field(default=..., description="""A unique identifier for a thing""", json_schema_extra = { "linkml_meta": {'domain_of': ['NamedThing'], 'slot_uri': 'schema:identifier'} })
-    name: Optional[str] = Field(default=None, description="""A human-readable name for a thing""", json_schema_extra = { "linkml_meta": {'domain_of': ['NamedThing'], 'slot_uri': 'schema:name'} })
-    description: Optional[str] = Field(default=None, description="""A human-readable description for a thing""", json_schema_extra = { "linkml_meta": {'domain_of': ['NamedThing'], 'slot_uri': 'schema:description'} })
+    reviewer: Optional[str] = Field(default=None, description="""Anonymized identifier of the reviewer, e.g. R1, R2...""", json_schema_extra = { "linkml_meta": {'domain_of': ['ReviewScore']} })
+    step: Optional[int] = Field(default=None, description="""Numeric representation of the stage or phase in the grant review process (e.g. \"1\" for the initial screening, \"2\" for the panel review...).""", json_schema_extra = { "linkml_meta": {'domain_of': ['ReviewScore']} })
+    criterion: Optional[str] = Field(default=None, description="""Criterion being evaluated.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ReviewScore']} })
+    score: float = Field(default=..., description="""Numeric score assigned.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ReviewScore']} })
 
 
-class Person(NamedThing):
+class GrantApplication(ConfiguredBaseModel):
     """
-    Represents a Person
+    Research grant application.
     """
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/grant-applications-data/miga',
-         'slot_usage': {'primary_email': {'name': 'primary_email',
-                                          'pattern': '^\\S+@[\\S+\\.]+\\S+'}}})
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/miga', 'tree_root': True})
 
-    primary_email: Optional[str] = Field(default=None, description="""The main email address of a person""", json_schema_extra = { "linkml_meta": {'domain_of': ['Person'], 'slot_uri': 'schema:email'} })
-    birth_date: Optional[date] = Field(default=None, description="""Date on which a person is born""", json_schema_extra = { "linkml_meta": {'domain_of': ['Person'], 'slot_uri': 'schema:birthDate'} })
-    age_in_years: Optional[int] = Field(default=None, description="""Number of years since birth""", json_schema_extra = { "linkml_meta": {'domain_of': ['Person']} })
-    vital_status: Optional[PersonStatus] = Field(default=None, description="""living or dead status""", json_schema_extra = { "linkml_meta": {'domain_of': ['Person']} })
-    id: str = Field(default=..., description="""A unique identifier for a thing""", json_schema_extra = { "linkml_meta": {'domain_of': ['NamedThing'], 'slot_uri': 'schema:identifier'} })
-    name: Optional[str] = Field(default=None, description="""A human-readable name for a thing""", json_schema_extra = { "linkml_meta": {'domain_of': ['NamedThing'], 'slot_uri': 'schema:name'} })
-    description: Optional[str] = Field(default=None, description="""A human-readable description for a thing""", json_schema_extra = { "linkml_meta": {'domain_of': ['NamedThing'], 'slot_uri': 'schema:description'} })
-
-    @field_validator('primary_email')
-    def pattern_primary_email(cls, v):
-        pattern=re.compile(r"^\S+@[\S+\.]+\S+")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid primary_email format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid primary_email format: {v}"
-            raise ValueError(err_msg)
-        return v
-
-
-class PersonCollection(ConfiguredBaseModel):
-    """
-    A holder for Person objects
-    """
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/grant-applications-data/miga',
-         'tree_root': True})
-
-    entries: Optional[list[Person]] = Field(default=[], json_schema_extra = { "linkml_meta": {'domain_of': ['PersonCollection']} })
+    pi_age: Optional[int] = Field(default=None, description="""Age of the principal investigator.""", json_schema_extra = { "linkml_meta": {'domain_of': ['GrantApplication']} })
+    pi_gender: Optional[str] = Field(default=None, description="""Gender of the principal investigator.""", json_schema_extra = { "linkml_meta": {'close_mappings': ['schema:gender'], 'domain_of': ['GrantApplication']} })
+    application_year: Optional[int] = Field(default=None, description="""Year the application was submitted, or year the grant scheme was published.""", json_schema_extra = { "linkml_meta": {'domain_of': ['GrantApplication']} })
+    grant_scheme: Optional[str] = Field(default=None, description="""The funding scheme under which the grant was applied.""", json_schema_extra = { "linkml_meta": {'domain_of': ['GrantApplication'], 'exact_mappings': ['schema:FundingScheme']} })
+    discipline: Optional[str] = Field(default=None, description="""Organizational division (panel, directorate, office...) that represents the discipline of the application. The most granular division should always be preferred.""", json_schema_extra = { "linkml_meta": {'domain_of': ['GrantApplication']} })
+    scores: Optional[list[ReviewScore]] = Field(default=[], description="""One or more scores assigned during the review process. A single score can be interpreted as the final score.""", json_schema_extra = { "linkml_meta": {'domain_of': ['GrantApplication']} })
+    success: Optional[bool] = Field(default=None, description="""Whether the application was successful.""", json_schema_extra = { "linkml_meta": {'domain_of': ['GrantApplication']} })
 
 
 # Model rebuild
 # see https://pydantic-docs.helpmanual.io/usage/models/#rebuilding-a-model
-NamedThing.model_rebuild()
-Person.model_rebuild()
-PersonCollection.model_rebuild()
+ReviewScore.model_rebuild()
+GrantApplication.model_rebuild()

@@ -18,28 +18,6 @@ default_range: string
 imports:
   - linkml:types
 
-enums:
-  GenderEnum:
-    description: Gender of a person, based on https://schema.org/Gender
-    permissible_values:
-      MALE:
-        meaning: schema:Male
-      FEMALE:
-        meaning: schema:Female
-
-types:
-  AgeRange:
-    description: Age range in string format (e.g. "35-45" with hyphen or "35–45" with en dash).
-    base: string
-    uri: xsd:string
-    pattern: '^\d+\s*[-–]\s*\d+$'
-
-  AgeValue:
-    description: Age as integer.
-    base: integer
-    uri: xsd:integer
-
-
 classes:
   ReviewScore:
     description: Final score or score for a specific criterion, step, and/or reviewer.
@@ -51,9 +29,10 @@ classes:
     slot_usage:
       score:
         range: float
+    exact_mappings: schema:Rating
 
   GrantApplication:
-    description: A research grant application.
+    description: Research grant application.
     tree_root: true
     slots:
       - pi_age
@@ -66,23 +45,21 @@ classes:
 
 slots:
   pi_age:
-    any_of: 
-      - range: AgeRange
-      - range: AgeValue
-    description: Age or age range of the principal investigator.
+    range: integer # alternatively, a string would permit age ranges such as "35-45".
+    description: Age of the principal investigator.
 
   pi_gender:
-    any_of:
-      - range: GenderEnum
-      - range: string
-    description: Gender of the principal investigator, with enumerations for male and female, while allowing other values as well (e.g. "Non-binary", "Other"...).
+    range: string
+    description: Gender of the principal investigator.
+    close_mappings: schema:gender
 
   application_year:
-    range: integer # range: date would require a year, month and day, see https://github.com/linkml/linkml/issues/496
+    range: integer # date would require a full year, month and day
     description: Year the application was submitted, or year the grant scheme was published.
 
   grant_scheme:
     description: The funding scheme under which the grant was applied.
+    exact_mappings: schema:FundingScheme
 
   discipline:
     description: Organizational division (panel, directorate, office...) that represents the discipline of the application. The most granular division should always be preferred.

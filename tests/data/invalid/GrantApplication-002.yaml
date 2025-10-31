@@ -1,0 +1,13 @@
+# Example for an invalid data object
+# the score is missing in ReviewScore
+# pi_age must be an integer
+---
+pi_age: "35–45"
+pi_gender: Female
+application_year: 2022
+grant_scheme: Consolidator grant
+discipline: Chemistry
+scores:
+  - reviewer: R1
+    step: 1
+success: false

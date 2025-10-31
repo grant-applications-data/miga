@@ -1,8 +1,8 @@
 # Auto generated from miga.yaml by pythongen.py version: 0.0.1
-# Generation date: 2025-10-29T18:54:37
+# Generation date: 2025-10-31T00:25:25
 # Schema: miga
 #
-# id: https://w3id.org/grant-applications-data/miga
+# id: https://w3id.org/miga
 # description: A minimal data schema to increase the transparency of grant applications, while protecting their confidentiality and the privacy of their applicants.
 # license: MIT
 
@@ -56,18 +56,15 @@ from rdflib import (
     URIRef
 )
 
-from linkml_runtime.linkml_model.types import Date, Integer, String, Uriorcurie
-from linkml_runtime.utils.metamodelcore import URIorCURIE, XSDDate
+from linkml_runtime.linkml_model.types import Boolean, Float, Integer, String
+from linkml_runtime.utils.metamodelcore import Bool
 
 metamodel_version = "1.7.0"
 version = None
 
 # Namespaces
-PATO = CurieNamespace('PATO', 'http://purl.obolibrary.org/obo/PATO_')
-BIOLINK = CurieNamespace('biolink', 'https://w3id.org/biolink/')
-EXAMPLE = CurieNamespace('example', 'https://example.org/')
 LINKML = CurieNamespace('linkml', 'https://w3id.org/linkml/')
-MIGA = CurieNamespace('miga', 'https://w3id.org/grant-applications-data/miga/')
+MIGA = CurieNamespace('miga', 'https://w3id.org/miga')
 SCHEMA = CurieNamespace('schema', 'http://schema.org/')
 DEFAULT_ = MIGA
 
@@ -75,151 +72,129 @@ DEFAULT_ = MIGA
 # Types
 
 # Class references
-class NamedThingId(URIorCURIE):
-    pass
 
-
-class PersonId(NamedThingId):
-    pass
 
 
 @dataclass(repr=False)
-class NamedThing(YAMLRoot):
+class ReviewScore(YAMLRoot):
     """
-    A generic grouping for any identifiable entity
+    Final score or score for a specific criterion, step, and/or reviewer.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SCHEMA["Thing"]
-    class_class_curie: ClassVar[str] = "schema:Thing"
-    class_name: ClassVar[str] = "NamedThing"
-    class_model_uri: ClassVar[URIRef] = MIGA.NamedThing
+    class_class_uri: ClassVar[URIRef] = MIGA["ReviewScore"]
+    class_class_curie: ClassVar[str] = "miga:ReviewScore"
+    class_name: ClassVar[str] = "ReviewScore"
+    class_model_uri: ClassVar[URIRef] = MIGA.ReviewScore
 
-    id: Union[str, NamedThingId] = None
-    name: Optional[str] = None
-    description: Optional[str] = None
+    score: float = None
+    reviewer: Optional[str] = None
+    step: Optional[int] = None
+    criterion: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.id):
-            self.MissingRequiredField("id")
-        if not isinstance(self.id, NamedThingId):
-            self.id = NamedThingId(self.id)
+        if self._is_empty(self.score):
+            self.MissingRequiredField("score")
+        if not isinstance(self.score, float):
+            self.score = float(self.score)
 
-        if self.name is not None and not isinstance(self.name, str):
-            self.name = str(self.name)
+        if self.reviewer is not None and not isinstance(self.reviewer, str):
+            self.reviewer = str(self.reviewer)
 
-        if self.description is not None and not isinstance(self.description, str):
-            self.description = str(self.description)
+        if self.step is not None and not isinstance(self.step, int):
+            self.step = int(self.step)
+
+        if self.criterion is not None and not isinstance(self.criterion, str):
+            self.criterion = str(self.criterion)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class Person(NamedThing):
+class GrantApplication(YAMLRoot):
     """
-    Represents a Person
-    """
-    _inherited_slots: ClassVar[list[str]] = []
-
-    class_class_uri: ClassVar[URIRef] = MIGA["Person"]
-    class_class_curie: ClassVar[str] = "miga:Person"
-    class_name: ClassVar[str] = "Person"
-    class_model_uri: ClassVar[URIRef] = MIGA.Person
-
-    id: Union[str, PersonId] = None
-    primary_email: Optional[str] = None
-    birth_date: Optional[Union[str, XSDDate]] = None
-    age_in_years: Optional[int] = None
-    vital_status: Optional[Union[str, "PersonStatus"]] = None
-
-    def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.id):
-            self.MissingRequiredField("id")
-        if not isinstance(self.id, PersonId):
-            self.id = PersonId(self.id)
-
-        if self.primary_email is not None and not isinstance(self.primary_email, str):
-            self.primary_email = str(self.primary_email)
-
-        if self.birth_date is not None and not isinstance(self.birth_date, XSDDate):
-            self.birth_date = XSDDate(self.birth_date)
-
-        if self.age_in_years is not None and not isinstance(self.age_in_years, int):
-            self.age_in_years = int(self.age_in_years)
-
-        if self.vital_status is not None and not isinstance(self.vital_status, PersonStatus):
-            self.vital_status = PersonStatus(self.vital_status)
-
-        super().__post_init__(**kwargs)
-
-
-@dataclass(repr=False)
-class PersonCollection(YAMLRoot):
-    """
-    A holder for Person objects
+    Research grant application.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = MIGA["PersonCollection"]
-    class_class_curie: ClassVar[str] = "miga:PersonCollection"
-    class_name: ClassVar[str] = "PersonCollection"
-    class_model_uri: ClassVar[URIRef] = MIGA.PersonCollection
+    class_class_uri: ClassVar[URIRef] = MIGA["GrantApplication"]
+    class_class_curie: ClassVar[str] = "miga:GrantApplication"
+    class_name: ClassVar[str] = "GrantApplication"
+    class_model_uri: ClassVar[URIRef] = MIGA.GrantApplication
 
-    entries: Optional[Union[dict[Union[str, PersonId], Union[dict, Person]], list[Union[dict, Person]]]] = empty_dict()
+    pi_age: Optional[int] = None
+    pi_gender: Optional[str] = None
+    application_year: Optional[int] = None
+    grant_scheme: Optional[str] = None
+    discipline: Optional[str] = None
+    scores: Optional[Union[Union[dict, ReviewScore], list[Union[dict, ReviewScore]]]] = empty_list()
+    success: Optional[Union[bool, Bool]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        self._normalize_inlined_as_list(slot_name="entries", slot_type=Person, key_name="id", keyed=True)
+        if self.pi_age is not None and not isinstance(self.pi_age, int):
+            self.pi_age = int(self.pi_age)
+
+        if self.pi_gender is not None and not isinstance(self.pi_gender, str):
+            self.pi_gender = str(self.pi_gender)
+
+        if self.application_year is not None and not isinstance(self.application_year, int):
+            self.application_year = int(self.application_year)
+
+        if self.grant_scheme is not None and not isinstance(self.grant_scheme, str):
+            self.grant_scheme = str(self.grant_scheme)
+
+        if self.discipline is not None and not isinstance(self.discipline, str):
+            self.discipline = str(self.discipline)
+
+        if not isinstance(self.scores, list):
+            self.scores = [self.scores] if self.scores is not None else []
+        self.scores = [v if isinstance(v, ReviewScore) else ReviewScore(**as_dict(v)) for v in self.scores]
+
+        if self.success is not None and not isinstance(self.success, Bool):
+            self.success = Bool(self.success)
 
         super().__post_init__(**kwargs)
 
 
 # Enumerations
-class PersonStatus(EnumDefinitionImpl):
 
-    ALIVE = PermissibleValue(
-        text="ALIVE",
-        description="the person is living",
-        meaning=PATO["0001421"])
-    DEAD = PermissibleValue(
-        text="DEAD",
-        description="the person is deceased",
-        meaning=PATO["0001422"])
-    UNKNOWN = PermissibleValue(
-        text="UNKNOWN",
-        description="the vital status is not known")
-
-    _defn = EnumDefinition(
-        name="PersonStatus",
-    )
 
 # Slots
 class slots:
     pass
 
-slots.id = Slot(uri=SCHEMA.identifier, name="id", curie=SCHEMA.curie('identifier'),
-                   model_uri=MIGA.id, domain=None, range=URIRef)
+slots.pi_age = Slot(uri=MIGA.pi_age, name="pi_age", curie=MIGA.curie('pi_age'),
+                   model_uri=MIGA.pi_age, domain=None, range=Optional[int])
 
-slots.name = Slot(uri=SCHEMA.name, name="name", curie=SCHEMA.curie('name'),
-                   model_uri=MIGA.name, domain=None, range=Optional[str])
+slots.pi_gender = Slot(uri=MIGA.pi_gender, name="pi_gender", curie=MIGA.curie('pi_gender'),
+                   model_uri=MIGA.pi_gender, domain=None, range=Optional[str])
 
-slots.description = Slot(uri=SCHEMA.description, name="description", curie=SCHEMA.curie('description'),
-                   model_uri=MIGA.description, domain=None, range=Optional[str])
+slots.application_year = Slot(uri=MIGA.application_year, name="application_year", curie=MIGA.curie('application_year'),
+                   model_uri=MIGA.application_year, domain=None, range=Optional[int])
 
-slots.primary_email = Slot(uri=SCHEMA.email, name="primary_email", curie=SCHEMA.curie('email'),
-                   model_uri=MIGA.primary_email, domain=None, range=Optional[str])
+slots.grant_scheme = Slot(uri=MIGA.grant_scheme, name="grant_scheme", curie=MIGA.curie('grant_scheme'),
+                   model_uri=MIGA.grant_scheme, domain=None, range=Optional[str])
 
-slots.birth_date = Slot(uri=SCHEMA.birthDate, name="birth_date", curie=SCHEMA.curie('birthDate'),
-                   model_uri=MIGA.birth_date, domain=None, range=Optional[Union[str, XSDDate]])
+slots.discipline = Slot(uri=MIGA.discipline, name="discipline", curie=MIGA.curie('discipline'),
+                   model_uri=MIGA.discipline, domain=None, range=Optional[str])
 
-slots.age_in_years = Slot(uri=MIGA.age_in_years, name="age_in_years", curie=MIGA.curie('age_in_years'),
-                   model_uri=MIGA.age_in_years, domain=None, range=Optional[int])
+slots.scores = Slot(uri=MIGA.scores, name="scores", curie=MIGA.curie('scores'),
+                   model_uri=MIGA.scores, domain=None, range=Optional[Union[Union[dict, ReviewScore], list[Union[dict, ReviewScore]]]])
 
-slots.vital_status = Slot(uri=MIGA.vital_status, name="vital_status", curie=MIGA.curie('vital_status'),
-                   model_uri=MIGA.vital_status, domain=None, range=Optional[Union[str, "PersonStatus"]])
+slots.reviewer = Slot(uri=MIGA.reviewer, name="reviewer", curie=MIGA.curie('reviewer'),
+                   model_uri=MIGA.reviewer, domain=None, range=Optional[str])
 
-slots.personCollection__entries = Slot(uri=MIGA.entries, name="personCollection__entries", curie=MIGA.curie('entries'),
-                   model_uri=MIGA.personCollection__entries, domain=None, range=Optional[Union[dict[Union[str, PersonId], Union[dict, Person]], list[Union[dict, Person]]]])
+slots.step = Slot(uri=MIGA.step, name="step", curie=MIGA.curie('step'),
+                   model_uri=MIGA.step, domain=None, range=Optional[int])
 
-slots.Person_primary_email = Slot(uri=SCHEMA.email, name="Person_primary_email", curie=SCHEMA.curie('email'),
-                   model_uri=MIGA.Person_primary_email, domain=Person, range=Optional[str],
-                   pattern=re.compile(r'^\S+@[\S+\.]+\S+'))
+slots.criterion = Slot(uri=MIGA.criterion, name="criterion", curie=MIGA.curie('criterion'),
+                   model_uri=MIGA.criterion, domain=None, range=Optional[str])
+
+slots.score = Slot(uri=MIGA.score, name="score", curie=MIGA.curie('score'),
+                   model_uri=MIGA.score, domain=None, range=float)
+
+slots.success = Slot(uri=MIGA.success, name="success", curie=MIGA.curie('success'),
+                   model_uri=MIGA.success, domain=None, range=Optional[Union[bool, Bool]])
+
+slots.ReviewScore_score = Slot(uri=MIGA.score, name="ReviewScore_score", curie=MIGA.curie('score'),
+                   model_uri=MIGA.ReviewScore_score, domain=ReviewScore, range=float)

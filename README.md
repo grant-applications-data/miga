@@ -1,6 +1,6 @@
 <a href="https://github.com/dalito/linkml-project-copier"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-teal.json" alt="Copier Badge" style="max-width:100%;"/></a>
 
-# miga
+# MIGA
 
 A minimal data schema to increase the transparency of grant applications, while protecting their confidentiality and the privacy of their applicants.
 

@@ -1,0 +1,163 @@
+{
+    "$defs": {
+        "GrantApplication": {
+            "additionalProperties": false,
+            "description": "Research grant application.",
+            "properties": {
+                "application_year": {
+                    "description": "Year the application was submitted, or year the grant scheme was published.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "discipline": {
+                    "description": "Organizational division (panel, directorate, office...) that represents the discipline of the application. The most granular division should always be preferred.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "grant_scheme": {
+                    "description": "The funding scheme under which the grant was applied.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "pi_age": {
+                    "description": "Age of the principal investigator.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "pi_gender": {
+                    "description": "Gender of the principal investigator.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "scores": {
+                    "description": "One or more scores assigned during the review process. A single score can be interpreted as the final score.",
+                    "items": {
+                        "$ref": "#/$defs/ReviewScore"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "success": {
+                    "description": "Whether the application was successful.",
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                }
+            },
+            "title": "GrantApplication",
+            "type": "object"
+        },
+        "ReviewScore": {
+            "additionalProperties": false,
+            "description": "Final score or score for a specific criterion, step, and/or reviewer.",
+            "properties": {
+                "criterion": {
+                    "description": "Criterion being evaluated.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "reviewer": {
+                    "description": "Anonymized identifier of the reviewer, e.g. R1, R2...",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "score": {
+                    "description": "Numeric score assigned.",
+                    "type": "number"
+                },
+                "step": {
+                    "description": "Numeric representation of the stage or phase in the grant review process (e.g. \"1\" for the initial screening, \"2\" for the panel review...).",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "score"
+            ],
+            "title": "ReviewScore",
+            "type": "object"
+        }
+    },
+    "$id": "https://w3id.org/miga",
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "additionalProperties": true,
+    "description": "Research grant application.",
+    "metamodel_version": "1.7.0",
+    "properties": {
+        "application_year": {
+            "description": "Year the application was submitted, or year the grant scheme was published.",
+            "type": [
+                "integer",
+                "null"
+            ]
+        },
+        "discipline": {
+            "description": "Organizational division (panel, directorate, office...) that represents the discipline of the application. The most granular division should always be preferred.",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "grant_scheme": {
+            "description": "The funding scheme under which the grant was applied.",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "pi_age": {
+            "description": "Age of the principal investigator.",
+            "type": [
+                "integer",
+                "null"
+            ]
+        },
+        "pi_gender": {
+            "description": "Gender of the principal investigator.",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "scores": {
+            "description": "One or more scores assigned during the review process. A single score can be interpreted as the final score.",
+            "items": {
+                "$ref": "#/$defs/ReviewScore"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "success": {
+            "description": "Whether the application was successful.",
+            "type": [
+                "boolean",
+                "null"
+            ]
+        }
+    },
+    "title": "miga",
+    "type": "object",
+    "version": null
+}
+

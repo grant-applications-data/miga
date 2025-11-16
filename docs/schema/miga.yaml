@@ -11,7 +11,7 @@ license: MIT
 prefixes:
   miga:
     prefix_prefix: miga
-    prefix_reference: https://w3id.org/miga
+    prefix_reference: https://w3id.org/miga/
   linkml:
     prefix_prefix: linkml
     prefix_reference: https://w3id.org/linkml/

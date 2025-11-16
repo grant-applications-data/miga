@@ -1,0 +1,20 @@
+# metamodel_version: 1.7.0
+type GrantApplication
+  {
+    piAge: Int
+    piGender: String
+    applicationYear: Int
+    grantScheme: String
+    discipline: String
+    scores: [ReviewScore]
+    success: Boolean
+  }
+
+type ReviewScore
+  {
+    reviewer: String
+    step: Int
+    criterion: String
+    score: Float!
+  }
+

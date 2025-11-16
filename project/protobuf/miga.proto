@@ -1,0 +1,23 @@
+ syntax="proto3";
+ package
+// metamodel_version: 1.7.0
+// Research grant application.
+message GrantApplication
+ {
+  integer piAge = 0
+  string piGender = 0
+  integer applicationYear = 0
+  string grantScheme = 0
+  string discipline = 0
+ repeated  reviewScore scores = 0
+  boolean success = 0
+ }
+// Final score or score for a specific criterion, step, and/or reviewer.
+message ReviewScore
+ {
+  string reviewer = 0
+  integer step = 0
+  string criterion = 0
+  float score = 0
+ }
+

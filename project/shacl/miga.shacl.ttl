@@ -1,0 +1,84 @@
+@prefix miga: <https://w3id.org/miga> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+miga:GrantApplication a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Research grant application." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Gender of the principal investigator." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path miga:pi_gender ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Age of the principal investigator." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path miga:pi_age ],
+        [ sh:class miga:ReviewScore ;
+            sh:description "One or more scores assigned during the review process. A single score can be interpreted as the final score." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 5 ;
+            sh:path miga:scores ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Year the application was submitted, or year the grant scheme was published." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path miga:application_year ],
+        [ sh:datatype xsd:string ;
+            sh:description "Organizational division (panel, directorate, office...) that represents the discipline of the application. The most granular division should always be preferred." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path miga:discipline ],
+        [ sh:datatype xsd:string ;
+            sh:description "The funding scheme under which the grant was applied." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path miga:grant_scheme ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Whether the application was successful." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path miga:success ] ;
+    sh:targetClass miga:GrantApplication .
+
+miga:ReviewScore a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Final score or score for a specific criterion, step, and/or reviewer." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:integer ;
+            sh:description "Numeric representation of the stage or phase in the grant review process (e.g. \"1\" for the initial screening, \"2\" for the panel review...)." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path miga:step ],
+        [ sh:datatype xsd:string ;
+            sh:description "Criterion being evaluated." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path miga:criterion ],
+        [ sh:datatype xsd:float ;
+            sh:description "Numeric score assigned." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path miga:score ],
+        [ sh:datatype xsd:string ;
+            sh:description "Anonymized identifier of the reviewer, e.g. R1, R2..." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path miga:reviewer ] ;
+    sh:targetClass miga:ReviewScore .
+
+

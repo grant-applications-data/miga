@@ -1,0 +1,187 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix miga: <https://w3id.org/miga> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema1: <http://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+miga:.owl.ttl a owl:Ontology ;
+    rdfs:label "miga" ;
+    dcterms:license "MIT" ;
+    dcterms:title "Minimal Information on Grant Applications (MIGA)" ;
+    rdfs:seeAlso <https://grant-applications-data.github.io/miga> ;
+    skos:definition "A minimal data schema to increase the transparency of grant applications, while protecting their confidentiality and the privacy of their applicants." .
+
+miga:GrantApplication a owl:Class ;
+    rdfs:label "GrantApplication" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty miga:application_year ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty miga:pi_age ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty miga:application_year ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty miga:discipline ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:integer ;
+            owl:onProperty miga:pi_age ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:integer ;
+            owl:onProperty miga:application_year ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty miga:discipline ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty miga:success ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom miga:ReviewScore ;
+            owl:onProperty miga:scores ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty miga:grant_scheme ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty miga:pi_age ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty miga:pi_gender ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty miga:pi_gender ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty miga:discipline ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty miga:grant_scheme ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty miga:scores ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty miga:grant_scheme ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty miga:success ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty miga:success ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty miga:pi_gender ] ;
+    skos:definition "Research grant application." ;
+    skos:inScheme miga: .
+
+miga:ReviewScore a owl:Class ;
+    rdfs:label "ReviewScore" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty miga:reviewer ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty miga:criterion ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty miga:criterion ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty miga:step ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty miga:score ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty miga:score ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:float ;
+            owl:onProperty miga:score ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty miga:reviewer ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:integer ;
+            owl:onProperty miga:step ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty miga:criterion ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty miga:reviewer ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty miga:step ] ;
+    skos:definition "Final score or score for a specific criterion, step, and/or reviewer." ;
+    skos:exactMatch schema1:Rating ;
+    skos:inScheme miga: .
+
+miga:scores a owl:ObjectProperty ;
+    rdfs:label "scores" ;
+    rdfs:range miga:ReviewScore ;
+    skos:definition "One or more scores assigned during the review process. A single score can be interpreted as the final score." ;
+    skos:inScheme miga: .
+
+miga:application_year a owl:DatatypeProperty ;
+    rdfs:label "application_year" ;
+    rdfs:range xsd:integer ;
+    skos:definition "Year the application was submitted, or year the grant scheme was published." ;
+    skos:inScheme miga: .
+
+miga:criterion a owl:DatatypeProperty ;
+    rdfs:label "criterion" ;
+    skos:definition "Criterion being evaluated." ;
+    skos:inScheme miga: .
+
+miga:discipline a owl:DatatypeProperty ;
+    rdfs:label "discipline" ;
+    skos:definition "Organizational division (panel, directorate, office...) that represents the discipline of the application. The most granular division should always be preferred." ;
+    skos:inScheme miga: .
+
+miga:grant_scheme a owl:DatatypeProperty ;
+    rdfs:label "grant_scheme" ;
+    skos:definition "The funding scheme under which the grant was applied." ;
+    skos:exactMatch schema1:FundingScheme ;
+    skos:inScheme miga: .
+
+miga:pi_age a owl:DatatypeProperty ;
+    rdfs:label "pi_age" ;
+    rdfs:range xsd:integer ;
+    skos:definition "Age of the principal investigator." ;
+    skos:inScheme miga: .
+
+miga:pi_gender a owl:DatatypeProperty ;
+    rdfs:label "pi_gender" ;
+    rdfs:range xsd:string ;
+    skos:closeMatch schema1:gender ;
+    skos:definition "Gender of the principal investigator." ;
+    skos:inScheme miga: .
+
+miga:reviewer a owl:DatatypeProperty ;
+    rdfs:label "reviewer" ;
+    skos:definition "Anonymized identifier of the reviewer, e.g. R1, R2..." ;
+    skos:inScheme miga: .
+
+miga:score a owl:DatatypeProperty ;
+    rdfs:label "score" ;
+    rdfs:range xsd:float ;
+    skos:definition "Numeric score assigned." ;
+    skos:inScheme miga: .
+
+miga:step a owl:DatatypeProperty ;
+    rdfs:label "step" ;
+    rdfs:range xsd:integer ;
+    skos:definition "Numeric representation of the stage or phase in the grant review process (e.g. \"1\" for the initial screening, \"2\" for the panel review...)." ;
+    skos:inScheme miga: .
+
+miga:success a owl:DatatypeProperty ;
+    rdfs:label "success" ;
+    rdfs:range xsd:boolean ;
+    skos:definition "Whether the application was successful." ;
+    skos:inScheme miga: .
+
+

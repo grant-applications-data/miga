@@ -1,0 +1,68 @@
+# metamodel_version: 1.7.0
+BASE <https://w3id.org/miga/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX linkml: <https://w3id.org/linkml/>
+
+
+linkml:String xsd:string
+
+linkml:Integer xsd:integer
+
+linkml:Boolean xsd:boolean
+
+linkml:Float xsd:float
+
+linkml:Double xsd:double
+
+linkml:Decimal xsd:decimal
+
+linkml:Time xsd:time
+
+linkml:Date xsd:date
+
+linkml:Datetime xsd:dateTime
+
+linkml:DateOrDatetime linkml:DateOrDatetime
+
+linkml:Uriorcurie IRI
+
+linkml:Curie xsd:string
+
+linkml:Uri IRI
+
+linkml:Ncname xsd:string
+
+linkml:Objectidentifier IRI
+
+linkml:Nodeidentifier NONLITERAL
+
+linkml:Jsonpointer xsd:string
+
+linkml:Jsonpath xsd:string
+
+linkml:Sparqlpath xsd:string
+
+<https://w3id.org/migaGrantApplication> CLOSED {
+    (  $<https://w3id.org/migaGrantApplication_tes> (  <https://w3id.org/migapi_age> @linkml:Integer ? ;
+          <https://w3id.org/migapi_gender> @linkml:String ? ;
+          <https://w3id.org/migaapplication_year> @linkml:Integer ? ;
+          <https://w3id.org/migagrant_scheme> @linkml:String ? ;
+          <https://w3id.org/migadiscipline> @linkml:String ? ;
+          <https://w3id.org/migascores> @<https://w3id.org/migaReviewScore> * ;
+          <https://w3id.org/migasuccess> @linkml:Boolean ?
+       ) ;
+       rdf:type [ <https://w3id.org/migaGrantApplication> ] ?
+    )
+}
+
+<https://w3id.org/migaReviewScore> CLOSED {
+    (  $<https://w3id.org/migaReviewScore_tes> (  <https://w3id.org/migareviewer> @linkml:String ? ;
+          <https://w3id.org/migastep> @linkml:Integer ? ;
+          <https://w3id.org/migacriterion> @linkml:String ? ;
+          <https://w3id.org/migascore> @linkml:Float
+       ) ;
+       rdf:type [ <https://w3id.org/migaReviewScore> ] ?
+    )
+}
+

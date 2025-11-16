@@ -9,7 +9,7 @@ see_also:
   - https://grant-applications-data.github.io/miga
 
 prefixes:
-  miga: https://w3id.org/miga
+  miga: https://w3id.org/miga/
   linkml: https://w3id.org/linkml/
   schema: http://schema.org/
 default_prefix: miga

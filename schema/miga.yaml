@@ -11,7 +11,7 @@ license: MIT
 prefixes:
   miga:
     prefix_prefix: miga
-    prefix_reference: https://w3id.org/miga
+    prefix_reference: https://w3id.org/miga/
   linkml:
     prefix_prefix: linkml
     prefix_reference: https://w3id.org/linkml/
@@ -292,7 +292,7 @@ types:
 slots:
   pi_age:
     name: pi_age
-    definition_uri: https://w3id.org/migapi_age
+    definition_uri: https://w3id.org/miga/pi_age
     description: Age of the principal investigator.
     from_schema: https://w3id.org/miga
     slot_uri: miga:pi_age
@@ -302,7 +302,7 @@ slots:
     range: integer
   pi_gender:
     name: pi_gender
-    definition_uri: https://w3id.org/migapi_gender
+    definition_uri: https://w3id.org/miga/pi_gender
     description: Gender of the principal investigator.
     from_schema: https://w3id.org/miga
     close_mappings:
@@ -314,7 +314,7 @@ slots:
     range: string
   application_year:
     name: application_year
-    definition_uri: https://w3id.org/migaapplication_year
+    definition_uri: https://w3id.org/miga/application_year
     description: Year the application was submitted, or year the grant scheme was
       published.
     from_schema: https://w3id.org/miga
@@ -325,7 +325,7 @@ slots:
     range: integer
   grant_scheme:
     name: grant_scheme
-    definition_uri: https://w3id.org/migagrant_scheme
+    definition_uri: https://w3id.org/miga/grant_scheme
     description: The funding scheme under which the grant was applied.
     from_schema: https://w3id.org/miga
     exact_mappings:
@@ -337,7 +337,7 @@ slots:
     range: string
   discipline:
     name: discipline
-    definition_uri: https://w3id.org/migadiscipline
+    definition_uri: https://w3id.org/miga/discipline
     description: Organizational division (panel, directorate, office...) that represents
       the discipline of the application. The most granular division should always
       be preferred.
@@ -349,7 +349,7 @@ slots:
     range: string
   scores:
     name: scores
-    definition_uri: https://w3id.org/migascores
+    definition_uri: https://w3id.org/miga/scores
     description: One or more scores assigned during the review process. A single score
       can be interpreted as the final score.
     from_schema: https://w3id.org/miga
@@ -363,7 +363,7 @@ slots:
     inlined_as_list: true
   reviewer:
     name: reviewer
-    definition_uri: https://w3id.org/migareviewer
+    definition_uri: https://w3id.org/miga/reviewer
     description: Anonymized identifier of the reviewer, e.g. R1, R2...
     from_schema: https://w3id.org/miga
     slot_uri: miga:reviewer
@@ -374,7 +374,7 @@ slots:
     required: false
   step:
     name: step
-    definition_uri: https://w3id.org/migastep
+    definition_uri: https://w3id.org/miga/step
     description: Numeric representation of the stage or phase in the grant review
       process (e.g. "1" for the initial screening, "2" for the panel review...).
     from_schema: https://w3id.org/miga
@@ -386,7 +386,7 @@ slots:
     required: false
   criterion:
     name: criterion
-    definition_uri: https://w3id.org/migacriterion
+    definition_uri: https://w3id.org/miga/criterion
     description: Criterion being evaluated.
     from_schema: https://w3id.org/miga
     slot_uri: miga:criterion
@@ -397,7 +397,7 @@ slots:
     required: false
   score:
     name: score
-    definition_uri: https://w3id.org/migascore
+    definition_uri: https://w3id.org/miga/score
     description: Numeric score assigned.
     from_schema: https://w3id.org/miga
     slot_uri: miga:score
@@ -408,7 +408,7 @@ slots:
     required: true
   success:
     name: success
-    definition_uri: https://w3id.org/migasuccess
+    definition_uri: https://w3id.org/miga/success
     description: Whether the application was successful.
     from_schema: https://w3id.org/miga
     slot_uri: miga:success
@@ -418,7 +418,7 @@ slots:
     range: boolean
   ReviewScore_score:
     name: ReviewScore_score
-    definition_uri: https://w3id.org/migascore
+    definition_uri: https://w3id.org/miga/score
     description: Numeric score assigned.
     from_schema: https://w3id.org/miga
     is_a: score
@@ -435,7 +435,7 @@ slots:
 classes:
   ReviewScore:
     name: ReviewScore
-    definition_uri: https://w3id.org/migaReviewScore
+    definition_uri: https://w3id.org/miga/ReviewScore
     description: Final score or score for a specific criterion, step, and/or reviewer.
     from_schema: https://w3id.org/miga
     exact_mappings:
@@ -452,7 +452,7 @@ classes:
     class_uri: miga:ReviewScore
   GrantApplication:
     name: GrantApplication
-    definition_uri: https://w3id.org/migaGrantApplication
+    definition_uri: https://w3id.org/miga/GrantApplication
     description: Research grant application.
     from_schema: https://w3id.org/miga
     slots:
@@ -467,7 +467,7 @@ classes:
     tree_root: true
 metamodel_version: 1.7.0
 source_file: miga.yaml
-source_file_date: '2025-11-16T22:56:51'
-source_file_size: 2582
-generation_date: '2025-11-16T22:57:00'
+source_file_date: '2025-11-16T22:58:44'
+source_file_size: 2583
+generation_date: '2025-11-16T22:58:52'
 
